@@ -17,4 +17,4 @@ Thumbs.db
 *.log
 
 # Configuración local con API keys (nunca commitear)
-config.local.js
+#config.local.js
