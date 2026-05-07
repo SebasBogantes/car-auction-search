@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyundai Tucson – US Auction Search</title>
+  <link rel="stylesheet" href="styles.css?v=3" />
+</head>
+<body>
+
+  <!-- =================== MODAL: API KEYS =================== -->
+  <div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal">
+      <h2 id="modal-title">⚙️ Configure your API Keys</h2>
+      <p class="modal-desc">
+        To search real listings you need free keys from these platforms.
+        They are saved <strong>only in your browser</strong> (localStorage).
+      </p>
+
+      <div class="api-card">
+        <div class="api-card-header">
+          <span class="api-name">MarketCheck</span>
+          <a class="api-link" href="https://www.marketcheck.com/apis/pricing/" target="_blank" rel="noopener">
+            Get free key →
+          </a>
+        </div>
+        <p class="api-limits">Free: 500 calls/month · Dealer and auction listings</p>
+        <input
+          id="key-mc"
+          type="text"
+          class="api-input"
+          placeholder="Paste your MarketCheck API Key here"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="api-card">
+        <div class="api-card-header">
+          <span class="api-name">Auto.dev</span>
+          <a class="api-link" href="https://www.auto.dev/" target="_blank" rel="noopener">
+            Get free key →
+          </a>
+        </div>
+        <p class="api-limits">Free: 1,000 calls/month · Millions of active listings</p>
+        <input
+          id="key-ad"
+          type="text"
+          class="api-input"
+          placeholder="Paste your Auto.dev API Key here"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="modal-note">
+        🔒 Keys are never sent to any server. They are used only to call MarketCheck and Auto.dev directly from your browser.
+      </div>
+
+      <button class="btn-primary" id="btn-save" onclick="saveKeys()">
+        Save and continue
+      </button>
+    </div>
+  </div>
+
+  <!-- =================== HEADER =================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="header-icon">🚗</span>
+        <div>
+          <h1 class="header-title">US Auction Search</h1>
+          <p class="header-sub">Hyundai Tucson 2015 / 2016 · Gasoline Engine</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =================== MAIN =================== -->
+  <main class="main-content">
+
+    <!-- Search bar -->
+    <section class="search-section">
+      <div class="filter-pills">
+        <span class="pill">Hyundai</span>
+        <span class="pill">Tucson</span>
+        <span class="pill">2015 – 2016</span>
+        <span class="pill">Gasoline</span>
+        <span class="pill pill-sources">2 sources</span>
+      </div>
+      <button id="btn-search" class="btn-search" onclick="buscar()">
+        🔍 Search
+      </button>
+    </section>
+
+    <!-- Loading state -->
+    <div id="loading" class="loading-state" hidden>
+      <div class="spinner"></div>
+      <p>Fetching from MarketCheck and Auto.dev…</p>
+    </div>
+
+    <!-- Source status line -->
+    <div id="source-status" class="source-status" hidden></div>
+
+    <!-- Error banner -->
+    <div id="error-banner" class="error-banner" role="alert" hidden></div>
+
+    <!-- Stats bar -->
+    <div id="stats-bar" class="stats-bar" hidden></div>
+
+    <!-- Filter bar (shown after first search) -->
+    <div id="filter-bar" class="filter-bar" hidden>
+      <div class="filter-group">
+        <label class="filter-label" for="filter-price-max">Max Price (USD)</label>
+        <input type="number" id="filter-price-max" class="filter-input" placeholder="No limit" min="0" oninput="renderPage(1)">
+      </div>
+      <div class="filter-group">
+        <label class="filter-label" for="filter-mileage-max">Max Mileage (mi)</label>
+        <input type="number" id="filter-mileage-max" class="filter-input" placeholder="No limit" min="0" oninput="renderPage(1)">
+      </div>
+      <div class="filter-group">
+        <label class="filter-label" for="filter-trans">Transmission</label>
+        <select id="filter-trans" class="filter-select" onchange="renderPage(1)">
+          <option value="">All</option>
+          <option value="automatic">Automatic</option>
+          <option value="manual">Manual</option>
+          <option value="cvt">CVT</option>
+        </select>
+      </div>
+      <button id="filter-favs-btn" class="btn-favs-toggle" onclick="toggleFavsFilter()">♥ Favorites</button>
+      <button class="btn-clear-filters" onclick="clearFilters()">✕ Clear</button>
+    </div>
+
+    <!-- Results grid -->
+    <div id="results" class="results-grid"></div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="pagination" hidden></div>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="empty-state" hidden>
+      <p class="empty-icon">🔎</p>
+      <p>No vehicles found.<br>Check your API keys or try again.</p>
+    </div>
+
+  </main>
+
+  <!-- =================== FOOTER =================== -->
+  <footer class="site-footer">
+    <p>Real-time data from <strong>MarketCheck</strong> and <strong>Auto.dev</strong> · Keys are stored locally in your browser.</p>
+  </footer>
+
+  <script src="config.local.js" onerror="void 0"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

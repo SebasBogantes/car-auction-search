@@ -1,0 +1,20 @@
+# Dependencias (si agregas npm en el futuro)
+node_modules/
+
+# Variables de entorno
+.env
+.env.local
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/settings.json
+.idea/
+
+# Logs
+*.log
+
+# Configuración local con API keys (nunca commitear)
+config.local.js
