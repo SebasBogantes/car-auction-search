@@ -151,7 +151,9 @@ async function fetchAutoDev(apiKey) {
 
   // Auto.dev no acepta múltiples años en un solo parámetro,
   // por eso hacemos una llamada por año en paralelo.
-  const adBase = (window.AD_PROXY_BASE || 'https://api.auto.dev') + '/listings';
+  const adBase = window.AD_PROXY_BASE
+    ? window.AD_PROXY_BASE + '/listings'
+    : '/api/autodev';
 
   const requests = SEARCH.years.map(async (year) => {
     const params = new URLSearchParams({
